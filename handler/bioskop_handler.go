@@ -21,11 +21,11 @@ type APIResponse struct {
 
 func NewBioskopHandler(r *gin.RouterGroup, svc bioskopservice.BioskopService) {
 	h := &BioskopHandler{svc: svc}
-	r.POST("/bioskop/create", h.Create)
+	r.POST("/bioskop", h.Create)
 	r.GET("/bioskop", h.Get)
 	r.GET("/bioskop/:id", h.GetById)
-	r.PUT("/bioskop/update/:id", h.Update)
-	r.DELETE("/bioskop/delete/:id", h.Delete)
+	r.PUT("/bioskop/:id", h.Update)
+	r.DELETE("/bioskop/:id", h.Delete)
 }
 
 func (h *BioskopHandler) Create(ctx *gin.Context) {
