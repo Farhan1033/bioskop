@@ -2,6 +2,7 @@ package infra
 
 import (
 	"bioskop/entity"
+	"bioskop/infra/config"
 	"fmt"
 	"log"
 
@@ -10,18 +11,17 @@ import (
 )
 
 var (
-	host   = "localhost"
-	user   = "postgres"
-	pass   = "postgres"
-	dbname = "bioskop"
-	port   = 5432
-	DB     *gorm.DB
-	err    error
+	DB  *gorm.DB
+	err error
 )
 
 func InitDB() {
-	dsn := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
-		host, port, user, pass, dbname,
+	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable TimeZone=Asia/Jakarta",
+		config.GetKey("DB_HOST"),
+		config.GetKey("DB_PORT"),
+		config.GetKey("DB_USER"),
+		config.GetKey("DB_PASS"),
+		config.GetKey("DB_NAME"),
 	)
 
 	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})

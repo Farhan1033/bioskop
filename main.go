@@ -3,6 +3,7 @@ package main
 import (
 	"bioskop/handler"
 	"bioskop/infra"
+	"bioskop/infra/config"
 	bioskoprepositorypg "bioskop/repository/bioskop_repository_pg"
 	bioskopserviceimpl "bioskop/service/bioskop_service_impl"
 
@@ -10,6 +11,7 @@ import (
 )
 
 func main() {
+	config.LoadEnv()
 	infra.InitDB()
 
 	r := gin.Default()
@@ -26,5 +28,5 @@ func main() {
 	//Init Handler
 	handler.NewBioskopHandler(api, bioskopService)
 
-	r.Run(":8080")
+	r.Run(":" + config.GetKey("APP_PORT"))
 }
